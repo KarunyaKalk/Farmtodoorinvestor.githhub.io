@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm2Door | Direct Farm-to-Consumer Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2e7d32;
+            --light-green: #4caf50;
+            --dark-green: #1b5e20;
+            --accent-yellow: #ffb300;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .logo i {
+            color: var(--accent-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .cta-button {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-green);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-light);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Section Common */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Value Proposition */
+        .value-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-green);
+        }
+
+        /* Features Section */
+        .features-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: var(--white);
+            border: 2px solid var(--light-green);
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-item {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+        }
+
+        /* User Flow Demo */
+        .user-flow {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .flow-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: var(--light-green);
+            z-index: 1;
+        }
+
+        .flow-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 3px solid var(--light-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .flow-step.active .step-number {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Prototype Screens */
+        .screens-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0 40px;
+            scrollbar-width: thin;
+        }
+
+        .screen-card {
+            min-width: 300px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+        }
+
+        .screen-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .screen-content {
+            padding: 20px;
+        }
+
+        .screen-img {
+            height: 200px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        /* Future Features */
+        .future-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .future-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent-yellow);
+        }
+
+        .future-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Investment Section */
+        .investment-highlights {
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+            color: white;
+            padding: 60px 0;
+            border-radius: var(--border-radius);
+            margin-top: 40px;
+        }
+
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .investment-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-green);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent-yellow);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-yellow);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .flow-steps::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <span>Farm2Door</span>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#value">Value Proposition</a>
+                <a href="#features">Features</a>
+                <a href="#workflow">How It Works</a>
+                <a href="#prototype">Prototype</a>
+                <a href="#investment">Investment</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <a href="#contact" class="cta-button">Invest Now</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Direct Farm-to-Consumer Marketplace</h1>
+            <p>Eliminating middlemen to provide fair pricing for farmers and fresh, affordable produce for buyers with complete transparency and trust.</p>
+            
+            <a href="#prototype" class="cta-button">View Prototype</a>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">40%</span>
+                    <span class="stat-label">Higher Farmer Income</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30%</span>
+                    <span class="stat-label">Buyer Savings</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">$50B+</span>
+                    <span class="stat-label">Market Opportunity</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">&lt;5%</span>
+                    <span class="stat-label">Digital Penetration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="section" id="value">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Core Value Proposition</h2>
+                <p>Farm2Door addresses key pain points in the agricultural supply chain by leveraging technology to create a fair and transparent marketplace.</p>
+            </div>
+            
+            <div class="value-cards">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Eliminate Middlemen</h3>
+                    <p>Direct digital marketplace connecting farmers directly with buyers, removing multiple intermediaries that reduce farmer profits.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Fair Pricing</h3>
+                    <p>Farmers set their prices while buyers see transparent comparisons with mandi prices, ensuring fair compensation and savings.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Trust & Transparency</h3>
+                    <p>Verified sellers, quality ratings, clear pricing, and farmer stories create a trustworthy ecosystem for all participants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features" style="background-color: #f0f8f0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Comprehensive Feature Set</h2>
+                <p>Farm2Door includes all essential features for both farmers and buyers, creating a seamless agricultural marketplace.</p>
+            </div>
+            
+            <div class="features-tabs">
+                <button class="tab-btn active" data-tab="farmer">Farmer Features</button>
+                <button class="tab-btn" data-tab="buyer">Buyer Features</button>
+                <button class="tab-btn" data-tab="trust">Trust & Transparency</button>
+                <button class="tab-btn" data-tab="logistics">Logistics & Support</button>
+            </div>
+            
+            <!-- Farmer Features Tab -->
+            <div class="tab-content active" id="farmer-tab">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Simple Onboarding</h4>
+                        <p>Phone OTP + KYC verification for quick registration</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <h4>Crop Listing</h4>
+                        <p>Photo upload, price setting, available quantity</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Transparent Pricing</h4>
+                        <p>Shows mandi price vs farmer price with savings %</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-money-check-alt"></i>
+                        </div>
+                        <h4>Direct Payments</h4>
+                        <p>Instant UPI/Bank transfers directly to farmers</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buyer Features Tab -->
+            <div class="tab-content" id="buyer-tab">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <h4>Marketplace Access</h4>
+                        <p>Browse verified farmers and their produce</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>Search & Filter</h4>
+                        <p>By crop, location, price, organic, bulk</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h4>Direct Buying</h4>
+                        <p>Add to cart, pay directly to farmer</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h4>Delivery Tracking</h4>
+                        <p>Live status updates for all orders</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trust & Transparency Tab -->
+            <div class="tab-content" id="trust-tab">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-id-badge"></i>
+                        </div>
+                        <h4>Verified Badge</h4>
+                        <p>Assures trust in sellers and buyers</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rating System</h4>
+                        <p>Both buyers and sellers rate each other</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <h4>Digital Receipts</h4>
+                        <p>Fair records for all transactions</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Farmer Story Page</h4>
+                        <p>Bio, farm photos, practices (organic/traditional)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Logistics & Support Tab -->
+            <div class="tab-content" id="logistics-tab">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Local Transporters</h4>
+                        <p>Tie-up with verified local logistics partners</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>GPS Tracking</h4>
+                        <p>GPS-enabled live delivery tracking</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Shared Transport</h4>
+                        <p>Reduces costs for small farmers</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Community & Education</h4>
+                        <p>Farmer discussions, expert advice, government scheme updates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Flow -->
+    <section class="section" id="workflow">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple User Journey</h2>
+                <p>From crop listing to delivery and feedback, Farm2Door provides a seamless experience for both farmers and buyers.</p>
+            </div>
+            
+            <div class="user-flow">
+                <div class="flow-steps">
+                    <div class="flow-step active">
+                        <div class="step-number">1</div>
+                        <h4>Farmer Lists Crop</h4>
+                        <p>Uploads crop info with price & photo</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <h4>Buyer Searches</h4>
+                        <p>Searches for specific crops & location</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <h4>Price Comparison</h4>
+                        <p>Sees market price vs farmer price</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <h4>Order & Payment</h4>
+                        <p>Places order & pays directly to farmer</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <h4>Delivery</h4>
+                        <p>Farmer arranges delivery with tracking</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">6</div>
+                        <h4>Feedback</h4>
+                        <p>Buyer rates farmer & leaves feedback</p>
+                    </div>
+                </div>
+                
+                <div class="flow-demo">
+                    <h3>Example Transaction</h3>
+                    <p>A buyer searches for "Wheat, Telangana" → sees verified farmers → selects farmer → sees: market price ₹28/kg vs farmer price ₹24/kg → places order → pays ₹24/kg directly to farmer → farmer arranges delivery → buyer receives order → rates farmer.</p>
+                    
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <h4 style="color: var(--dark-green); margin-bottom: 10px;">Transparent Pricing Example</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <p style="color: var(--text-light); margin-bottom: 5px;">Mandi Price</p>
+                                <h3 style="color: #666;">₹28/kg</h3>
+                            </div>
+                            <div>
+                                <i class="fas fa-arrow-right" style="color: var(--primary-green); font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <p style="color: var(--text-light); margin-bottom: 5px;">Farmer Price</p>
+                                <h3 style="color: var(--primary-green);">₹24/kg</h3>
+                            </div>
+                            <div>
+                                <i class="fas fa-arrow-right" style="color: var(--primary-green); font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <p style="color: var(--text-light); margin-bottom: 5px;">Buyer Savings</p>
+                                <h3 style="color: var(--accent-yellow);">14.3%</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prototype Screens -->
+    <section class="section" id="prototype">
+        <div class="container">
+            <div class="section-title">
+                <h2>Prototype Screens</h2>
+                <p>Key screens from the Farm2Door mobile application showcasing user interface and experience.</p>
+            </div>
+            
+            <div class="screens-container">
+                <div class="screen-card">
+                    <div class="screen-header">
+                        <h4>Home Dashboard (Buyer View)</h4>
+                    </div>
+                    <div class="screen-content">
+                        <div class="screen-img">
+                            <div style="text-align: center;">
+                                <i class="fas fa-home" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 10px;"></i>
+                                <p>Weather updates, Trending crops, "Verified Farmers Near You", Quick search</p>
+                            </div>
+                        </div>
+                        <p>Personalized dashboard with weather-aware crop recommendations and nearby farmers.</p>
+                    </div>
+                </div>
+                
+                <div class="screen-card">
+                    <div class="screen-header">
+                        <h4>Marketplace Listing</h4>
+                    </div>
+                    <div class="screen-content">
+                        <div class="screen-img">
+                            <div style="text-align: center;">
+                                <i class="fas fa-th-large" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 10px;"></i>
+                                <p>Grid of crops with images, farmer names, prices, locations</p>
+                            </div>
+                        </div>
+                        <p>Visual crop browsing with mandi vs direct price comparison and filtering options.</p>
+                    </div>
+                </div>
+                
+                <div class="screen-card">
+                    <div class="screen-header">
+                        <h4>Farmer Profile Page</h4>
+                    </div>
+                    <div class="screen-content">
+                        <div class="screen-img">
+                            <div style="text-align: center;">
+                                <i class="fas fa-user" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 10px;"></i>
+                                <p>Farmer photo, location map, bio, crop list, reviews</p>
+                            </div>
+                        </div>
+                        <p>Complete farmer profile with story, practices, and rating to build trust.</p>
+                    </div>
+                </div>
+                
+                <div class="screen-card">
+                    <div class="screen-header">
+                        <h4>Order & Payment</h4>
+                    </div>
+                    <div class="screen-content">
+                        <div class="screen-img">
+                            <div style="text-align: center;">
+                                <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 10px;"></i>
+                                <p>Quantity selection, price breakdown, payment options</p>
+                            </div>
+                        </div>
+                        <p>Simple checkout with transparent price breakdown and multiple payment methods.</p>
+                    </div>
+                </div>
+                
+                <div class="screen-card">
+                    <div class="screen-header">
+                        <h4>Logistics Tracking</h4>
+                    </div>
+                    <div class="screen-content">
+                        <div class="screen-img">
+                            <div style="text-align: center;">
+                                <i class="fas fa-map-marked-alt" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 10px;"></i>
+                                <p>Live truck location, delivery ETA, contact driver</p>
+                            </div>
+                        </div>
+                        <p>Real-time delivery tracking with map visualization and driver communication.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Enhancements -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Future Enhancements & Roadmap</h2>
+                <p>Strategic features planned for future development to enhance platform capabilities and market reach.</p>
+            </div>
+            
+            <div class="future-features">
+                <div class="future-card">
+                    <h4><i class="fas fa-robot"></i> AI Crop Recommendations</h4>
+                    <p>AI-driven suggestions for farmers on what to grow based on market demand, weather patterns, and soil conditions.</p>
+                </div>
+                
+                <div class="future-card">
+                    <h4><i class="fas fa-link"></i> Blockchain Ledger</h4>
+                    <p>Tamper-proof transaction records using blockchain technology for complete transparency and trust.</p>
+                </div>
+                
+                <div class="future-card">
+                    <h4><i class="fas fa-snowflake"></i> Cold Storage Tie-ups</h4>
+                    <p>Partnerships with cold storage facilities to reduce post-harvest waste and extend produce shelf life.</p>
+                </div>
+                
+                <div class="future-card">
+                    <h4><i class="fas fa-calendar-check"></i> Subscription Model</h4>
+                    <p>Weekly fresh basket subscriptions for buyers with customized produce selection and regular delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Opportunity -->
+    <section class="section" id="investment">
+        <div class="container">
+            <div class="section-title">
+                <h2>Investment Opportunity</h2>
+                <p>Farm2Door addresses a massive market with limited digital penetration, offering significant growth potential.</p>
+            </div>
+            
+            <div class="investment-highlights">
+                <div class="section-title" style="color: white;">
+                    <h2>Seeking $2M Seed Round</h2>
+                    <p>For 12-month runway to launch in 3 states and acquire initial user base</p>
+                </div>
+                
+                <div class="investment-grid">
+                    <div class="investment-card">
+                        <h3>$50B+</h3>
+                        <p>Total Addressable Market</p>
+                    </div>
+                    
+                    <div class="investment-card">
+                        <h3>&lt;5%</h3>
+                        <p>Current Digital Penetration</p>
+                    </div>
+                    
+                    <div class="investment-card">
+                        <h3>40%</h3>
+                        <p>Farmer Income Increase</p>
+                    </div>
+                    
+                    <div class="investment-card">
+                        <h3>30%</h3>
+                        <p>Buyer Cost Savings</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">Use of Funds</h3>
+                    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-code" style="font-size: 2rem;"></i>
+                            </div>
+                            <p>Technology Development</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-users" style="font-size: 2rem;"></i>
+                            </div>
+                            <p>Team Expansion</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-bullhorn" style="font-size: 2rem;"></i>
+                            </div>
+                            <p>Market Launch & Marketing</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-handshake" style="font-size: 2rem;"></i>
+                            </div>
+                            <p>Farmer & Transporter Onboarding</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Next Steps -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ready to Invest in Agricultural Transformation?</h2>
+                <p>Join us in revolutionizing the agricultural supply chain and creating equitable value for farmers and buyers.</p>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow);">
+                <h3 style="text-align: center; margin-bottom: 30px; color: var(--dark-green);">Schedule a Pitch Meeting</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div>
+                        <h4 style="color: var(--primary-green); margin-bottom: 20px;">Next Steps:</h4>
+                        <ul style="list-style-type: none;">
+                            <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: var(--light-green); margin-right: 10px; margin-top: 5px;"></i>
+                                <span>Live Demo with Investor Group</span>
+                            </li>
+                            <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: var(--light-green); margin-right: 10px; margin-top: 5px;"></i>
+                                <span>Technical Deep-Dive Session</span>
+                            </li>
+                            <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: var(--light-green); margin-right: 10px; margin-top: 5px;"></i>
+                                <span>Financial Model Review</span>
+                            </li>
+                            <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: var(--light-green); margin-right: 10px; margin-top: 5px;"></i>
+                                <span>Pilot Program Planning</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: var(--primary-green); margin-bottom: 20px;">Contact Information:</h4>
+                        <div style="margin-bottom: 20px;">
+                            <p><i class="fas fa-envelope" style="color: var(--primary-green); margin-right: 10px;"></i> investors@farm2door.com</p>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <p><i class="fas fa-phone" style="color: var(--primary-green); margin-right: 10px;"></i> +91 98765 43210</p>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <p><i class="fas fa-map-marker-alt" style="color: var(--primary-green); margin-right: 10px;"></i> Hyderabad, Telangana, India</p>
+                        </div>
+                        
+                        <a href="mailto:investors@farm2door.com" class="cta-button" style="display: inline-block; margin-top: 20px;">Contact Investment Team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Farm2Door</h3>
+                    <p>Direct digital marketplace eliminating middlemen in agricultural supply chain. Fair for farmers, fresh for buyers.</p>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <i class="fab fa-twitter" style="font-size: 1.2rem;"></i>
+                        <i class="fab fa-linkedin" style="font-size: 1.2rem;"></i>
+                        <i class="fab fa-facebook" style="font-size: 1.2rem;"></i>
+                        <i class="fab fa-instagram" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Platform Features</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Farmer Features</a></li>
+                        <li><a href="#features">Buyer Features</a></li>
+                        <li><a href="#features">Trust & Transparency</a></li>
+                        <li><a href="#features">Logistics & Support</a></li>
+                        <li><a href="#prototype">Prototype Screens</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Investment</h3>
+                    <ul class="footer-links">
+                        <li><a href="#investment">Market Opportunity</a></li>
+                        <li><a href="#investment">Financial Projections</a></li>
+                        <li><a href="#investment">Use of Funds</a></li>
+                        <li><a href="#contact">Schedule Meeting</a></li>
+                        <li><a href="#contact">Contact Team</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Investor Agreement</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Farm2Door Agri-Tech Prototype. All rights reserved. This is a prototype for investment demonstration purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // User flow step animation
+        const flowSteps = document.querySelectorAll('.flow-step');
+        let currentStep = 0;
+        
+        function updateFlowSteps() {
+            flowSteps.forEach((step, index) => {
+                if (index <= currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            currentStep = (currentStep + 1) % flowSteps.length;
+        }
+        
+        // Auto-rotate through flow steps
+        setInterval(updateFlowSteps, 3000);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+        
+        // Investment stats counter animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const finalValue = parseFloat(stat.textContent);
+                let startValue = 0;
+                const duration = 2000;
+                const increment = finalValue / (duration / 16); // 60fps
+                
+                const timer = setInterval(() => {
+                    startValue += increment;
+                    if(startValue >= finalValue) {
+                        stat.textContent = finalValue + (stat.textContent.includes('%') ? '%' : '');
+                        clearInterval(timer);
+                    } else {
+                        if(stat.textContent.includes('%')) {
+                            stat.textContent = Math.floor(startValue) + '%';
+                        } else if(stat.textContent.includes('$')) {
+                            stat.textContent = '$' + Math.floor(startValue / 1000) + 'B+';
+                        } else {
+                            stat.textContent = Math.floor(startValue);
+                        }
+                    }
+                }, 16);
+            });
+        }
+        
+        // Trigger stats animation when in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.hero-stats'));
+    </script>
+</body>
+</html>
